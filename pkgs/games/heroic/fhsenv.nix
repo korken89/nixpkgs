@@ -6,7 +6,8 @@
 }:
 
 buildFHSEnv {
-  name = "heroic";
+  pname = "heroic";
+  inherit (heroic-unwrapped) version;
 
   runScript = "heroic";
 
@@ -111,7 +112,7 @@ buildFHSEnv {
       libpulseaudio
       libselinux
       libsndfile
-      libsoup
+      libsoup_2_4
       libtheora
       libtiff
       libunwind

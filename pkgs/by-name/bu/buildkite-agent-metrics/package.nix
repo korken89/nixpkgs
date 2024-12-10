@@ -1,21 +1,25 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 buildGoModule rec {
   pname = "buildkite-agent-metrics";
-  version = "5.9.9";
+  version = "5.9.10";
 
-  outputs = [ "out" "lambda" ];
+  outputs = [
+    "out"
+    "lambda"
+  ];
 
   src = fetchFromGitHub {
     owner = "buildkite";
     repo = "buildkite-agent-metrics";
     rev = "v${version}";
-    hash = "sha256-Y39v+OBhR4WpytCeQN6qBuQpdwKlEgiKgeG5U79QFxU=";
+    hash = "sha256-2nN4Odx1GytI7WVnZHqepQsJKzfvj2ctkreWz3AgpR8=";
   };
 
-  vendorHash = "sha256-i2+nefRE4BD93rG842oZj0/coamYVRMPxEHio80bdWk=";
+  vendorHash = "sha256-YefdOc56TBKQZ6Ra4SpQwLTJYTZ2KuxRhRslaXIpucQ=";
 
   postInstall = ''
     mkdir -p $lambda/bin

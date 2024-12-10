@@ -1,33 +1,36 @@
-{ lib
-, fetchFromGitHub
-, rustPlatform
-, pkg-config
-, openssl
-, stdenv
-, installShellFiles
-, libiconv
-, darwin
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+  pkg-config,
+  openssl,
+  stdenv,
+  installShellFiles,
+  libiconv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "novops";
-  version = "0.17.0";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "PierreBeucher";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-/sb9LqBZRkJeGyWZzz3RDgWm2tEtiaEXrEX/OO5ja6o=";
+    hash = "sha256-ToIIBLLwf9GLg+/2VF3DQTT1RokI6XHwdPmr+BtNFeU=";
   };
 
-  cargoHash = "sha256-gvM0I+om4I8Yy+m0CzD5/WpL8xdIs3ecKQgmaq9S3VI=";
+  cargoHash = "sha256-3QB7iuzWlWDgFRrKiwq7Yh9PIW88m1N+nPQ8fdEQ7Ps=";
 
-  buildInputs = [
-    openssl # required for openssl-sys
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin [
-    libiconv
-    darwin.apple_sdk.frameworks.SystemConfiguration
-  ];
+  buildInputs =
+    [
+      openssl # required for openssl-sys
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin [
+      libiconv
+      darwin.apple_sdk.frameworks.SystemConfiguration
+    ];
 
   nativeBuildInputs = [
     installShellFiles
@@ -35,9 +38,9 @@ rustPlatform.buildRustPackage rec {
   ];
 
   cargoTestFlags = [
-      # Only run lib tests (unit tests)
-      # All other tests are integration tests which should not be run with Nix build
-      "--lib"
+    # Only run lib tests (unit tests)
+    # All other tests are integration tests which should not be run with Nix build
+    "--lib"
   ];
 
   postInstall = ''

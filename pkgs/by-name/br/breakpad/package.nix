@@ -1,19 +1,25 @@
-{ lib, stdenv, fetchgit, zlib }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  zlib,
+}:
 let
   lss = fetchgit {
     url = "https://chromium.googlesource.com/linux-syscall-support";
     rev = "v2022.10.12";
     hash = "sha256-rF10v5oH4u9i9vnmFCVVl2Ew3h+QTiOsW64HeB0nRQU=";
   };
-in stdenv.mkDerivation (finalAttrs: {
+in
+stdenv.mkDerivation (finalAttrs: {
   pname = "breakpad";
 
-  version = "2023.01.27";
+  version = "2023.06.01";
 
   src = fetchgit {
     url = "https://chromium.googlesource.com/breakpad/breakpad";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-8msKz0K10r13TwM3oS6GCIlMdf8k8HBKfKJkPmrUrIs=";
+    hash = "sha256-8AkC/8oX4OWAcV21laJ0AeMRB9G04rFc6UJFy7Wus4A=";
   };
 
   buildInputs = [ zlib ];

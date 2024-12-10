@@ -1,4 +1,11 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, installShellFiles, stdenv }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  nixosTests,
+  installShellFiles,
+  stdenv,
+}:
 
 buildGoModule rec {
   pname = "shiori";
@@ -15,6 +22,11 @@ buildGoModule rec {
     sha256 = "sha256-gMIpDiA5ncZ50WZ2Y57mScTEXzeObgZxP+nkWe+a8Eo=";
   };
 
+  ldflags = [
+    "-X main.version=${version}"
+    "-X main.commit=nixpkgs-${src.rev}"
+  ];
+
   nativeBuildInputs = [ installShellFiles ];
   postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     installShellCompletion --cmd shiori \
@@ -30,6 +42,9 @@ buildGoModule rec {
     mainProgram = "shiori";
     homepage = "https://github.com/go-shiori/shiori";
     license = licenses.mit;
-    maintainers = with maintainers; [ minijackson CaptainJawZ ];
+    maintainers = with maintainers; [
+      minijackson
+      CaptainJawZ
+    ];
   };
 }

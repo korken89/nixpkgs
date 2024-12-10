@@ -1,19 +1,30 @@
-{ lib, stdenvNoCC, fetchFromGitHub, gtk3, numix-icon-theme, hicolor-icon-theme, gitUpdater }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  gtk3,
+  numix-icon-theme,
+  hicolor-icon-theme,
+  gitUpdater,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "numix-icon-theme-square";
-  version = "24.07.19";
+  version = "24.10.22";
 
   src = fetchFromGitHub {
     owner = "numixproject";
     repo = pname;
     rev = version;
-    sha256 = "sha256-mHCQpFBBnJfmMA0o5BVt8IWhHIcMSaReCezVgVqVAw4=";
+    sha256 = "sha256-7pAVXaNH/qMmo7/CcDgeFbA6KHINAxu8sHMoQYecZKM=";
   };
 
   nativeBuildInputs = [ gtk3 ];
 
-  propagatedBuildInputs = [ numix-icon-theme hicolor-icon-theme ];
+  propagatedBuildInputs = [
+    numix-icon-theme
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

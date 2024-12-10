@@ -9,20 +9,20 @@
 }:
 
 let
-  version = "2024.8.5";
+  version = "2024.11.1";
 
   product =
     if proEdition then
       {
         productName = "pro";
         productDesktop = "Burp Suite Professional Edition";
-        hash = "sha256-bG1+U16qRNnHHhjloUIMxBH7/zKRo0b3tEX1ebsClL4=";
+        hash = "sha256-T2mihC/E9P2ARDs3aN6Acg62W86zNR4rTjngriGl3aU=";
       }
     else
       {
         productName = "community";
         productDesktop = "Burp Suite Community Edition";
-        hash = "sha256-rUDG2L/MC6vX58If7rLHKd73hyV2lSdO1ZZu9tDaznM=";
+        hash = "sha256-feTqtqnYtT7i+HtJAERcKK3QAdPkXm+JUtl6JZLEHJA=";
       };
 
   src = fetchurl {
@@ -100,11 +100,17 @@ buildFHSEnv {
       exploiting security vulnerabilities.
     '';
     homepage = "https://portswigger.net/burp/";
+    changelog =
+      "https://portswigger.net/burp/releases/professional-community-"
+      + replaceStrings [ "." ] [ "-" ] version;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.unfree;
     platforms = jdk.meta.platforms;
     hydraPlatforms = [ ];
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [
+      bennofs
+      fab
+    ];
     mainProgram = "burpsuite";
   };
 }
